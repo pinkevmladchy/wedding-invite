@@ -1,63 +1,70 @@
-# 🎉 Birthday Invite — Interactive Party Invitation
+# Wedding Invitation — Дмитро & Ірина
 
-A web-based birthday invitation with a secret entrance code, animated guest walkers, and a party card. Built as a reusable template for personal celebrations.
-Active link: https://leomorgan113.github.io/birthday-invite/
----
+A personal, single-page wedding invitation built with Vue 3 + Vite + TypeScript. Guests enter a personal code to unlock the invitation, see a short welcome screen with their name, and reach a full invitation page with venue, schedule, dress code, and an RSVP form.
 
-## 📸 Preview
-
-### 🔐 Entrance Code Page
-Guests are prompted to enter a secret code before seeing the invitation.
-
-<img src="images/invitation_code.png" alt="Invitation code" width="500"/>
-
-> **Entrance code: `MASH25`**
-
-> Add a birthday wishlist link for your friends.
+**Date:** 29 серпня 2026 · **Місце:** Cafe Gallerist, Буча
 
 ---
 
-### 🚶 Guest Walkers
-An animated screen shows all invited guests walking to the party.
+## How it works
 
-<img src="images/invitation_walkers.png" alt="Guest walkers" width="500"/>
+1. **Code screen** — guest enters a personal invitation code (e.g. `GUEST01`).
+2. **Reveal screen** — short animated greeting with the guest's name.
+3. **Invitation** — full page with:
+   - Місце (venue + ceremony / reception times, map link)
+   - Програма вечора (timeline)
+   - Дрес-код (style + colour swatches)
+   - Підтвердження (RSVP form submitted via Formspree)
 
-> 💡 For the walkers use your friends name and photos. It'll be fun!
-
----
-
-### 🪩 Invitation Card
-After entering the correct code, guests see the full party details.
-
-<img src="images/invitation_card.png" alt="Invitation card" width="500"/>
-
-> 🎨 An invitation card can be created in Pinterest using "Collage" tool. [My collage example.](https://www.pinterest.com/pin/846113848787006592/)
+Guest codes and names are defined in `src/composables/useInvite.ts` (`GUEST_LIST`).
 
 ---
 
-## ⚙️ How It Works
+## Configuration
 
-1. The guest opens the page and is shown a secret code input form.
-2. They enter the code **`MASH25`** to unlock the invitation.
-3. An animated scene shows all invited guests heading to the celebration.
-4. The invitation card reveals party details (date, time, location).
+Most copy lives in `src/App.vue` under the `WEDDING` object — names, dates, venue, schedule, dress code, photo URLs.
+
+- **Photos:** drop `couple-portrait.jpg` and `couple-detail.jpg` into `public/`.
+- **RSVP endpoint:** set `FORMSPREE_ENDPOINT` in `src/App.vue` to your own Formspree form.
+- **Guests:** edit `GUEST_LIST` in `src/composables/useInvite.ts`.
 
 ---
 
-## 🛠️ Project Setup
+## Project setup
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Develop with hot reload
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### Type-check, build for production
 
 ```sh
 npm run build
 ```
+
+### Preview the production build
+
+```sh
+npm run preview
+```
+
+### Deploy to GitHub Pages
+
+```sh
+npm run deploy
+```
+
+---
+
+## Stack
+
+- Vue 3 (`<script setup>`) + TypeScript
+- Vite 7
+- Formspree (RSVP submissions)
+- `gh-pages` for deployment
