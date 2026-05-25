@@ -1,9 +1,12 @@
-/* ===== EDITORIAL WEDDING — 5-COLOR PALETTE ===== */
+/* ===== EDITORIAL WEDDING — MOODBOARD PALETTE ===== */
 :root {
-    --ivory:     #faf8f2;   /* warm off-white — canvas */
+    --ivory:     #f4ecd8;   /* warm cream — canvas */
     --noir:      #1a1b16;   /* near-black for display type & contrast */
-    --sage:      #acbf69;   /* signature accent */
+    --sage:      #9aab7b;   /* dusty sage — signature soft accent */
     --sage-deep: #5c6b3a;   /* darker sage — small accents / links */
+    --olive:     #5e6e35;   /* deep olive — monogram & feature notes */
+    --gold:      #b59a52;   /* brass / antique gold — fine details */
+    --champagne: #d4c8ad;   /* warm champagne — secondary canvas */
     --stone:     #b5ab94;   /* warm gray — hairlines, captions */
 
     --display:   'Bodoni Moda', 'Playfair Display', Georgia, serif;
@@ -17,6 +20,7 @@ body, html {
     background: var(--ivory);
     color: var(--noir);
     font-family: var(--body);
+    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -166,7 +170,7 @@ body, html {
 .namestack-amp {
     font-family: var(--display);
     font-style: italic;
-    color: var(--sage-deep);
+    color: var(--olive);
     text-transform: lowercase;
     letter-spacing: 0.25em;
     padding: 4px 0;
@@ -553,7 +557,7 @@ body, html {
     font-style: italic;
     font-size: 14px;
     letter-spacing: 0.2em;
-    color: var(--sage-deep);
+    color: var(--gold);
 }
 .schedule-label {
     font-family: var(--serif);
@@ -669,6 +673,19 @@ body, html {
     color: var(--ivory);
 }
 
+.venue-pool-note {
+    margin: 32px auto 0;
+    max-width: 420px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--olive);
+    letter-spacing: 0.03em;
+    padding-top: 22px;
+    border-top: 1px solid rgba(111, 122, 45, 0.25);
+}
+
 /* RSVP FORM */
 .rsvp-form {
     max-width: 520px;
@@ -730,7 +747,7 @@ body, html {
     font-family: var(--display);
     font-style: italic;
     font-size: 56px;
-    color: var(--sage-deep);
+    color: var(--gold);
     margin-bottom: 18px;
 }
 .rsvp-thanks-text {
@@ -749,42 +766,66 @@ body, html {
     text-align: center;
 }
 .footer-photo-wrap {
-    max-width: 360px;
-    margin: 0 auto 48px;
+    position: relative;
+    width: 100vw;
+    max-width: none;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    margin-bottom: 48px;
+    overflow: hidden;
 }
 .footer-photo {
     width: 100%;
     height: auto;
     display: block;
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 16 / 9;
     object-fit: cover;
-    filter: grayscale(1) contrast(1.04);
+    filter: grayscale(1) contrast(1.02) brightness(0.82);
     background: #ece7da;
+}
+.footer-photo-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 48px 24px;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.30) 0%,
+        rgba(0, 0, 0, 0.18) 50%,
+        rgba(0, 0, 0, 0.40) 100%
+    );
+    pointer-events: none;
 }
 .footer-date-mark {
     font-family: var(--display);
     font-weight: 400;
     font-size: clamp(18px, 2.4vw, 26px);
     letter-spacing: 0.5em;
-    color: var(--noir);
+    color: var(--ivory);
     margin-bottom: 24px;
     text-transform: uppercase;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
 }
 .footer-rule {
     width: 60px;
     height: 1px;
-    background: var(--sage-deep);
+    background: var(--ivory);
     margin: 0 auto 24px;
-    opacity: .6;
+    opacity: .85;
 }
 .footer-names {
     font-family: var(--serif);
     font-weight: 400;
-    font-size: clamp(18px, 2vw, 22px);
+    font-size: clamp(22px, 2.6vw, 30px);
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--noir);
-    margin-bottom: 16px;
+    color: var(--ivory);
+    margin-bottom: 0;
+    text-shadow: 0 1px 14px rgba(0, 0, 0, 0.4);
 }
 .footer-sign {
     font-family: var(--serif);
@@ -859,9 +900,12 @@ body, html {
 
     /* footer */
     .invite-footer { padding: 56px 0 44px; }
-    .footer-photo-wrap { max-width: 260px; margin: 0 auto 32px; }
-    .footer-date-mark { font-size: 16px; letter-spacing: 0.4em; margin-bottom: 18px; }
-    .footer-names { font-size: 16px; letter-spacing: 0.15em; }
+    .footer-photo-wrap { margin-bottom: 32px; }
+    .footer-photo { aspect-ratio: 4 / 5; }
+    .footer-photo-overlay { padding: 32px 20px; }
+    .footer-date-mark { font-size: 14px; letter-spacing: 0.4em; margin-bottom: 16px; }
+    .footer-rule { margin-bottom: 16px; }
+    .footer-names { font-size: 20px; letter-spacing: 0.15em; }
     .footer-sign  { font-size: 14px; }
 }
 

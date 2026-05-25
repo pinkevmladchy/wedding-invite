@@ -35,23 +35,25 @@ const vReveal = {
 const WEDDING = {
   brideName: "Ірина",
   groomName: "Дмитро",
-  date: "29 серпня 2026",
-  dateFmt: "29 · 08 · 2026",
-  dateRoman: "XXIX · VIII · MMXXVI",
-  estTagline: "Established · MMXXVI",
+  date: "23 серпня 2026",
+  dateFmt: "23 · 08 · 2026",
+  dateRoman: "23 · 08 · 2026",
+  estTagline: "Established · 2026",
   heroPhotoUrl: `${BASE}couple-portrait.jpg`,
   footerPhotoUrl: `${BASE}couple-detail.jpg`,
   photoCaption: "Дмитро та Ірина",
   venue: {
-    name: "Cafe Gallerist",
-    city: "Буча",
-    ceremonyTime: "15:00",
-    receptionTime: "17:00",
-    mapUrl: "https://maps.google.com/?q=Cafe+Gallerist+Bucha",
+    name: "Яхт-клуб",
+    city: "Осещина · Київська область",
+    address: "вул. Київська, 2Г · 07363",
+    ceremonyTime: "14:00",
+    receptionTime: "16:00",
+    mapUrl: "https://maps.google.com/?q=Kyivska+2G,+Oseshchyna,+Kyiv+Oblast,+07363",
+    poolNote: "На території є басейн — можете взяти із собою плавки та купальники",
   },
   schedule: [
-    { time: "14:30", label: "Збір гостей" },
-    { time: "15:00", label: "Церемонія" },
+    { time: "13:30", label: "Збір гостей" },
+    { time: "14:00", label: "Церемонія" },
     { time: "16:00", label: "Фотосесія та коктейлі" },
     { time: "17:00", label: "Бенкет у закладі" },
     { time: "19:00", label: "Перший танець" },
@@ -60,12 +62,12 @@ const WEDDING = {
   dressCode: {
     style: "Cocktail Attire",
     sub: "Святкова елегантність",
-    note: "Уникайте, будь ласка, білого кольору",
     swatches: [
-      { hex: "#ffffff", label: "Білий" },
-      { hex: "#faf8f2", label: "Айворі" },
-      { hex: "#acbf69", label: "Шавлія" },
-      { hex: "#b5ab94", label: "Камінь" },
+      { hex: "#f4ecd8", label: "Крем" },
+      { hex: "#d4c8ad", label: "Шампань" },
+      { hex: "#9aab7b", label: "Шавлія" },
+      { hex: "#5e6e35", label: "Олива" },
+      { hex: "#b59a52", label: "Брасс" },
       { hex: "#1a1b16", label: "Нуар" },
     ],
   },
@@ -127,7 +129,7 @@ async function submitRsvp() {
       <div class="code-stage">
         <div class="namestack namestack--lg">
           <span class="namestack-line">{{ WEDDING.groomName }}</span>
-          <span class="namestack-amp">et</span>
+          <span class="namestack-amp">&amp;</span>
           <span class="namestack-line">{{ WEDDING.brideName }}</span>
         </div>
         <p class="code-date">{{ WEDDING.dateRoman }}</p>
@@ -147,7 +149,7 @@ async function submitRsvp() {
       </div>
 
       <div class="code-bottom">
-        <span>Bucha</span>
+        <span>Osescheny</span>
         <span>·</span>
         <span>Ukraine</span>
       </div>
@@ -171,10 +173,10 @@ async function submitRsvp() {
 
         <!-- HERO -->
         <section class="hero">
-          <p v-reveal class="eyebrow eyebrow--stone hero-eyebrow">L'Invitation · MMXXVI</p>
+          <p v-reveal class="eyebrow eyebrow--stone hero-eyebrow">L'Invitation · 2026</p>
           <h1 v-reveal="120" class="namestack namestack--xl">
             <span class="namestack-line">{{ WEDDING.groomName }}</span>
-            <span class="namestack-amp">et</span>
+            <span class="namestack-amp">&amp;</span>
             <span class="namestack-line">{{ WEDDING.brideName }}</span>
           </h1>
           <p v-reveal="240" class="hero-date">{{ WEDDING.dateRoman }} &nbsp;·&nbsp; {{ WEDDING.venue.city }}</p>
@@ -196,7 +198,7 @@ async function submitRsvp() {
         <section v-reveal class="section">
           <header class="section-head">
             <div class="section-chapter">
-              <span class="section-chapter-num">I</span>
+              <span class="section-chapter-num">01</span>
             </div>
             <h2 class="section-title">Місце</h2>
           </header>
@@ -217,6 +219,8 @@ async function submitRsvp() {
             </div>
 
             <a class="map-link" :href="WEDDING.venue.mapUrl" target="_blank" rel="noopener">Відкрити на мапі</a>
+
+            <p class="venue-pool-note">{{ WEDDING.venue.poolNote }}</p>
           </div>
         </section>
 
@@ -224,7 +228,7 @@ async function submitRsvp() {
         <section v-reveal class="section">
           <header class="section-head">
             <div class="section-chapter">
-              <span class="section-chapter-num">II</span>
+              <span class="section-chapter-num">02</span>
             </div>
             <h2 class="section-title">Програма вечора</h2>
           </header>
@@ -241,7 +245,7 @@ async function submitRsvp() {
         <section v-reveal class="section">
           <header class="section-head">
             <div class="section-chapter">
-              <span class="section-chapter-num">III</span>
+              <span class="section-chapter-num">03</span>
             </div>
             <h2 class="section-title">Дрес-код</h2>
           </header>
@@ -259,7 +263,6 @@ async function submitRsvp() {
               </div>
             </div>
 
-            <p class="dress-note">{{ WEDDING.dressCode.note }}</p>
           </div>
         </section>
 
@@ -267,7 +270,7 @@ async function submitRsvp() {
         <section v-reveal class="section">
           <header class="section-head">
             <div class="section-chapter">
-              <span class="section-chapter-num">IV</span>
+              <span class="section-chapter-num">04</span>
             </div>
             <h2 class="section-title">Підтвердження</h2>
             <p class="section-sub">Будь ласка, дайте нам знати до 1 серпня</p>
@@ -318,10 +321,12 @@ async function submitRsvp() {
             <img :src="WEDDING.footerPhotoUrl"
                  alt="Дмитро та Ірина"
                  class="footer-photo" />
+            <div class="footer-photo-overlay">
+              <p class="footer-date-mark">{{ WEDDING.dateRoman }}</p>
+              <div class="footer-rule"></div>
+              <p class="footer-names">{{ WEDDING.groomName }} &nbsp;&amp;&nbsp; {{ WEDDING.brideName }}</p>
+            </div>
           </div>
-          <p class="footer-date-mark">{{ WEDDING.dateRoman }}</p>
-          <div class="footer-rule"></div>
-          <p class="footer-names">{{ WEDDING.groomName }} &nbsp;et&nbsp; {{ WEDDING.brideName }}</p>
           <p class="footer-sign">З нетерпінням чекаємо на Вас</p>
         </footer>
 
