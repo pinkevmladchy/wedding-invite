@@ -1,17 +1,18 @@
 /* ===== EDITORIAL WEDDING — MOODBOARD PALETTE ===== */
 :root {
-    --ivory:     #f4ecd8;   /* warm cream — canvas */
-    --noir:      #1a1b16;   /* near-black for display type & contrast */
-    --sage:      #9aab7b;   /* dusty sage — signature soft accent */
-    --sage-deep: #5c6b3a;   /* darker sage — small accents / links */
-    --olive:     #5e6e35;   /* deep olive — monogram & feature notes */
-    --gold:      #b59a52;   /* brass / antique gold — fine details */
-    --champagne: #d4c8ad;   /* warm champagne — secondary canvas */
-    --stone:     #b5ab94;   /* warm gray — hairlines, captions */
+    --ivory:     #f2f6ec;   /* soft sage-white — main canvas */
+    --paper:     #ffffff;   /* pure white — cards */
+    --noir:      #232e18;   /* deep forest green — display type & contrast */
+    --sage:      #9aab7b;   /* dusty sage — signature accent */
+    --sage-deep: #5c6b3a;   /* deep sage — small accents / links */
+    --olive:     #54632f;   /* deep olive — monogram & feature notes */
+    --gold:      #b59a52;   /* brass — retained for dress-code swatch only */
+    --champagne: #d4c8ad;   /* warm champagne — dress-code swatch */
+    --stone:     #a3b08d;   /* sage-gray — hairlines, captions */
 
-    --display:   'Bodoni Moda', 'Playfair Display', Georgia, serif;
-    --serif:     'Playfair Display', Georgia, serif;
-    --body:      'Lora', Georgia, serif;
+    --display:   'Cormorant Garamond', Georgia, serif;
+    --serif:     'Cormorant Garamond', Georgia, serif;
+    --body:      'Inter', system-ui, -apple-system, sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -20,9 +21,16 @@ body, html {
     background: var(--ivory);
     color: var(--noir);
     font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.6;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+.app {
+    position: relative;
+    width: 100%;
 }
 
 .screen {
@@ -43,11 +51,11 @@ body, html {
 }
 
 /* ===== TRANSITIONS ===== */
-.fade-enter-active, .fade-leave-active { transition: opacity 1.1s ease; }
+.fade-enter-active, .fade-leave-active { transition: opacity .5s ease; }
 .fade-enter-from, .fade-leave-to       { opacity: 0; }
 
-.pop-enter-active { transition: all 1s cubic-bezier(.22,.61,.36,1); }
-.pop-enter-from   { opacity: 0; transform: translateY(20px); }
+.pop-enter-active { transition: all .5s cubic-bezier(.22,.61,.36,1); }
+.pop-enter-from   { opacity: 0; transform: translateY(16px); }
 
 @keyframes shake {
     0%,100%{transform:translateX(0)}
@@ -60,8 +68,8 @@ body, html {
 /* ===== SCROLL REVEAL ===== */
 .reveal {
     opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 1s cubic-bezier(.22,.61,.36,1), transform 1s cubic-bezier(.22,.61,.36,1);
+    transform: translateY(18px);
+    transition: opacity .6s cubic-bezier(.22,.61,.36,1), transform .6s cubic-bezier(.22,.61,.36,1);
     will-change: opacity, transform;
 }
 .reveal.is-visible {
@@ -79,8 +87,8 @@ body, html {
 /* ===== EDITORIAL PRIMITIVES ===== */
 .eyebrow {
     font-family: var(--body);
-    font-size: 10px;
-    letter-spacing: 0.45em;
+    font-size: 11px;
+    letter-spacing: 0.26em;
     text-transform: uppercase;
     color: var(--sage-deep);
     font-weight: 500;
@@ -138,7 +146,7 @@ body, html {
     padding: 0 48px;
     font-family: var(--display);
     font-size: 11px;
-    letter-spacing: 0.4em;
+    letter-spacing: 0.24em;
     color: var(--stone);
     text-transform: uppercase;
 }
@@ -156,7 +164,7 @@ body, html {
     align-items: center;
     gap: 4px;
     font-family: var(--serif);
-    font-weight: 400;
+    font-weight: 500;
     color: var(--noir);
     line-height: 0.95;
     letter-spacing: 0.01em;
@@ -183,7 +191,7 @@ body, html {
 .code-date {
     font-family: var(--display);
     font-size: 12px;
-    letter-spacing: 0.5em;
+    letter-spacing: 0.3em;
     color: var(--sage-deep);
     margin-bottom: 48px;
     text-transform: uppercase;
@@ -197,7 +205,7 @@ body, html {
 .code-label {
     font-family: var(--body);
     font-size: 10px;
-    letter-spacing: 0.4em;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
     color: var(--stone);
     margin-bottom: 14px;
@@ -211,7 +219,7 @@ body, html {
     border-bottom: 1px solid var(--noir);
     font-family: var(--display);
     font-size: 28px;
-    letter-spacing: 0.4em;
+    letter-spacing: 0.24em;
     text-align: center;
     text-transform: uppercase;
     color: var(--noir);
@@ -229,9 +237,10 @@ body, html {
     padding: 16px 36px;
     font-family: var(--body);
     font-size: 11px;
-    letter-spacing: 0.4em;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
     cursor: pointer;
+    border-radius: 4px;
     transition: background .3s, color .3s, border-color .3s;
 }
 .ghost-btn:hover {
@@ -267,7 +276,7 @@ body, html {
 .reveal-eyebrow {
     font-family: var(--body);
     font-size: 10px;
-    letter-spacing: 0.5em;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--stone);
     margin-bottom: 26px;
@@ -276,7 +285,7 @@ body, html {
 
 .reveal-name {
     font-family: var(--display);
-    font-weight: 400;
+    font-weight: 500;
     font-size: clamp(56px, 10vw, 120px);
     color: var(--ivory);
     line-height: 1.05;
@@ -331,7 +340,7 @@ body, html {
 .hero-date {
     font-family: var(--display);
     font-size: 13px;
-    letter-spacing: 0.5em;
+    letter-spacing: 0.3em;
     color: var(--sage-deep);
     text-transform: uppercase;
     margin-bottom: 64px;
@@ -344,30 +353,29 @@ body, html {
     overflow: hidden;
 }
 @media (min-width: 880px) {
-    .hero-photo-wrap { margin: 0 0 60px; }
+    .hero-photo-wrap { margin: 0 0 60px; border-radius: 10px; }
 }
 
 .hero-photo {
     width: 100%;
     height: auto;
     display: block;
-    filter: grayscale(1) contrast(1.04);
     aspect-ratio: 4 / 5;
     object-fit: cover;
-    background: linear-gradient(135deg, #ece7da 0%, #d8d2c0 100%);
+    background: linear-gradient(135deg, #e4ebd9 0%, #cdd8bc 100%);
 }
 
 .hero-photo-placeholder {
     width: 100%;
     aspect-ratio: 4 / 5;
-    background: linear-gradient(135deg, #ece7da 0%, #d8d2c0 100%);
+    background: linear-gradient(135deg, #e4ebd9 0%, #cdd8bc 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--stone);
     font-family: var(--display);
     font-size: 12px;
-    letter-spacing: 0.4em;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
     text-align: center;
     padding: 24px;
@@ -378,7 +386,7 @@ body, html {
     margin-top: 14px;
     font-family: var(--display);
     font-size: 11px;
-    letter-spacing: 0.45em;
+    letter-spacing: 0.26em;
     color: var(--stone);
     text-transform: uppercase;
 }
@@ -386,7 +394,7 @@ body, html {
 /* SECTION SHELL */
 .section {
     padding: 80px 0;
-    border-top: 1px solid rgba(181, 171, 148, 0.4);
+    border-top: 1px solid rgba(163, 176, 141, 0.4);
 }
 .section:first-of-type { border-top: none; }
 
@@ -418,7 +426,7 @@ body, html {
 
 .section-title {
     font-family: var(--serif);
-    font-weight: 400;
+    font-weight: 500;
     font-size: clamp(32px, 5vw, 52px);
     color: var(--noir);
     letter-spacing: 0.02em;
@@ -429,7 +437,7 @@ body, html {
     margin-top: 14px;
     font-family: var(--serif);
     font-style: italic;
-    font-size: 17px;
+    font-size: 20px;
     color: var(--stone);
     letter-spacing: 0.04em;
 }
@@ -441,7 +449,7 @@ body, html {
     text-align: center;
     font-family: var(--serif);
     font-style: italic;
-    font-size: clamp(20px, 2.2vw, 26px);
+    font-size: clamp(22px, 2.4vw, 28px);
     line-height: 1.55;
     color: var(--noir);
     letter-spacing: 0.02em;
@@ -452,7 +460,7 @@ body, html {
     font-family: var(--display);
     font-style: normal;
     font-size: 13px;
-    letter-spacing: 0.5em;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--sage-deep);
     margin-top: 32px;
@@ -464,8 +472,10 @@ body, html {
     max-width: 600px;
     margin: 0 auto;
     padding: 56px 48px 48px;
-    border: 1px solid var(--noir);
-    background: #fff;
+    border: 1px solid rgba(35, 46, 24, 0.1);
+    border-radius: 14px;
+    background: var(--paper);
+    box-shadow: 0 14px 40px rgba(35, 46, 24, 0.06);
 }
 @media (max-width: 500px) {
     .venue-card { padding: 40px 24px 36px; }
@@ -482,8 +492,8 @@ body, html {
 .venue-city {
     font-family: var(--body);
     font-weight: 500;
-    font-size: 13px;
-    letter-spacing: 0.4em;
+    font-size: 14px;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
     color: var(--sage-deep);
     margin-bottom: 44px;
@@ -504,8 +514,8 @@ body, html {
     display: block;
     font-family: var(--body);
     font-weight: 600;
-    font-size: 12px;
-    letter-spacing: 0.35em;
+    font-size: 13px;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
     color: var(--sage-deep);
     margin-bottom: 16px;
@@ -539,36 +549,40 @@ body, html {
 /* SCHEDULE */
 .schedule {
     list-style: none;
-    max-width: 540px;
+    max-width: 560px;
     margin: 0 auto;
 }
 .schedule-item {
     display: grid;
-    grid-template-columns: 56px 1fr auto;
+    grid-template-columns: 2ch 1fr auto;
     align-items: baseline;
-    gap: 20px;
-    padding: 22px 0;
-    border-bottom: 1px solid rgba(181, 171, 148, 0.45);
+    column-gap: 22px;
+    padding: 22px 24px;
+    border-bottom: 1px solid rgba(163, 176, 141, 0.45);
+    border-radius: 10px;
+    transition: background .35s ease;
 }
 .schedule-item:last-child { border-bottom: none; }
+.schedule-item:hover { background: rgba(154, 171, 123, 0.12); }
 
 .schedule-num {
     font-family: var(--display);
     font-style: italic;
-    font-size: 14px;
-    letter-spacing: 0.2em;
-    color: var(--gold);
+    font-size: 16px;
+    letter-spacing: 0.12em;
+    color: var(--sage-deep);
 }
 .schedule-label {
-    font-family: var(--serif);
-    font-size: 19px;
+    font-family: var(--body);
+    font-size: 18px;
     color: var(--noir);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
 }
 .schedule-time {
     font-family: var(--display);
-    font-size: 18px;
-    letter-spacing: 0.15em;
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: 0.08em;
     color: var(--noir);
 }
 
@@ -580,7 +594,7 @@ body, html {
 }
 .dress-style {
     font-family: var(--display);
-    font-weight: 400;
+    font-weight: 500;
     font-size: clamp(28px, 3.4vw, 38px);
     color: var(--noir);
     letter-spacing: 0.04em;
@@ -589,42 +603,58 @@ body, html {
 }
 .dress-style-sub {
     font-family: var(--body);
-    font-size: 11px;
-    letter-spacing: 0.45em;
+    font-size: 12px;
+    letter-spacing: 0.26em;
     text-transform: uppercase;
     color: var(--stone);
     margin-bottom: 36px;
 }
 
 .swatches {
-    display: flex;
-    gap: 12px;
+    display: grid;
+    grid-template-columns: repeat(3, 88px);
     justify-content: center;
-    margin-bottom: 32px;
+    justify-items: center;
+    align-items: center;
+    column-gap: 40px;
+    row-gap: 52px;
+    margin: 0 auto 40px;
+    width: max-content;
 }
 .swatch {
-    width: 56px; height: 56px;
-    border: 1px solid var(--stone);
+    width: 88px; height: 88px;
     border-radius: 50%;
     position: relative;
+    box-shadow: inset 0 0 0 1px rgba(35, 46, 24, 0.08);
+    transition: transform .35s cubic-bezier(.22,.61,.36,1);
 }
+.swatch:hover { transform: translateY(-3px); }
 .swatch-label {
     position: absolute;
-    bottom: -22px; left: 50%;
+    bottom: -24px; left: 50%;
     transform: translateX(-50%);
-    font-family: var(--display);
-    font-size: 9px;
-    letter-spacing: 0.3em;
+    font-family: var(--body);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
     color: var(--stone);
     text-transform: uppercase;
     white-space: nowrap;
 }
-.swatches-wrap { padding-bottom: 26px; }
+@media (max-width: 420px) {
+    .swatches { grid-template-columns: repeat(3, 72px); column-gap: 22px; }
+    .swatch { width: 72px; height: 72px; }
+}
+.swatches-wrap {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 44px;
+}
 
 .dress-note {
     font-family: var(--serif);
     font-style: italic;
-    font-size: 17px;
+    font-size: 19px;
     color: var(--noir);
     letter-spacing: 0.03em;
 }
@@ -636,7 +666,7 @@ body, html {
     text-align: center;
     font-family: var(--serif);
     font-style: italic;
-    font-size: clamp(18px, 2vw, 22px);
+    font-size: clamp(20px, 2.2vw, 24px);
     line-height: 1.6;
     color: var(--noir);
     letter-spacing: 0.02em;
@@ -646,7 +676,7 @@ body, html {
     margin-top: 28px;
     font-family: var(--body);
     font-size: 11px;
-    letter-spacing: 0.4em;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
     color: var(--sage-deep);
     text-decoration: none;
@@ -660,12 +690,13 @@ body, html {
     display: inline-block;
     font-family: var(--body);
     font-size: 11px;
-    letter-spacing: 0.4em;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
     color: var(--noir);
     text-decoration: none;
     padding: 14px 28px;
     border: 1px solid var(--noir);
+    border-radius: 4px;
     transition: background .3s, color .3s;
 }
 .map-link:hover {
@@ -675,10 +706,10 @@ body, html {
 
 .venue-pool-note {
     margin: 32px auto 0;
-    max-width: 420px;
+    max-width: 440px;
     font-family: var(--serif);
     font-style: italic;
-    font-size: 15px;
+    font-size: 18px;
     line-height: 1.55;
     color: var(--olive);
     letter-spacing: 0.03em;
@@ -698,7 +729,7 @@ body, html {
 .rsvp-q-label {
     font-family: var(--serif);
     font-style: italic;
-    font-size: 19px;
+    font-size: 22px;
     color: var(--noir);
     margin-bottom: 18px;
     letter-spacing: 0.02em;
@@ -712,10 +743,10 @@ body, html {
     background: transparent;
     color: var(--noir);
     border: none;
-    padding: 12px 32px;
+    padding: 13px 32px;
     font-family: var(--body);
-    font-size: 11px;
-    letter-spacing: 0.4em;
+    font-size: 12px;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     cursor: pointer;
     min-width: 100px;
@@ -747,13 +778,13 @@ body, html {
     font-family: var(--display);
     font-style: italic;
     font-size: 56px;
-    color: var(--gold);
+    color: var(--sage-deep);
     margin-bottom: 18px;
 }
 .rsvp-thanks-text {
     font-family: var(--serif);
     font-style: italic;
-    font-size: 18px;
+    font-size: 20px;
     color: var(--noir);
     line-height: 1.6;
     letter-spacing: 0.02em;
@@ -762,7 +793,7 @@ body, html {
 /* FOOTER */
 .invite-footer {
     padding: 80px 0 60px;
-    border-top: 1px solid rgba(181, 171, 148, 0.4);
+    border-top: 1px solid rgba(163, 176, 141, 0.4);
     text-align: center;
 }
 .footer-photo-wrap {
@@ -780,8 +811,8 @@ body, html {
     display: block;
     aspect-ratio: 16 / 9;
     object-fit: cover;
-    filter: grayscale(1) contrast(1.02) brightness(0.82);
-    background: #ece7da;
+    filter: brightness(0.82);
+    background: #e4ebd9;
 }
 .footer-photo-overlay {
     position: absolute;
@@ -804,7 +835,7 @@ body, html {
     font-family: var(--display);
     font-weight: 400;
     font-size: clamp(18px, 2.4vw, 26px);
-    letter-spacing: 0.5em;
+    letter-spacing: 0.3em;
     color: var(--ivory);
     margin-bottom: 24px;
     text-transform: uppercase;
@@ -843,7 +874,7 @@ body, html {
     .code-bottom { padding: 0 24px; bottom: 24px; font-size: 10px; letter-spacing: 0.3em; }
     .namestack--lg .namestack-line { font-size: clamp(40px, 14vw, 64px); letter-spacing: 0.06em; }
     .namestack--lg .namestack-amp  { font-size: 14px; }
-    .code-date { font-size: 11px; letter-spacing: 0.4em; margin-bottom: 36px; }
+    .code-date { font-size: 11px; letter-spacing: 0.24em; margin-bottom: 36px; }
     .code-label { font-size: 9px; letter-spacing: 0.35em; }
     .code-input { font-size: 22px; letter-spacing: 0.3em; padding: 10px 0 12px; margin-bottom: 24px; }
     .ghost-btn { padding: 14px 28px; font-size: 10px; letter-spacing: 0.35em; }
@@ -857,7 +888,7 @@ body, html {
     .hero-eyebrow { margin-bottom: 26px; }
     .namestack--xl .namestack-line { font-size: clamp(48px, 15vw, 96px); letter-spacing: 0.05em; }
     .namestack--xl .namestack-amp  { font-size: 16px; }
-    .hero-date { font-size: 11px; letter-spacing: 0.4em; margin-bottom: 44px; }
+    .hero-date { font-size: 11px; letter-spacing: 0.24em; margin-bottom: 44px; }
 
     .section { padding: 56px 0; }
     .section-head { margin-bottom: 36px; }
@@ -903,7 +934,7 @@ body, html {
     .footer-photo-wrap { margin-bottom: 32px; }
     .footer-photo { aspect-ratio: 4 / 5; }
     .footer-photo-overlay { padding: 32px 20px; }
-    .footer-date-mark { font-size: 14px; letter-spacing: 0.4em; margin-bottom: 16px; }
+    .footer-date-mark { font-size: 14px; letter-spacing: 0.24em; margin-bottom: 16px; }
     .footer-rule { margin-bottom: 16px; }
     .footer-names { font-size: 20px; letter-spacing: 0.15em; }
     .footer-sign  { font-size: 14px; }

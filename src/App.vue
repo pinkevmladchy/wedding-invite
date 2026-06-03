@@ -38,26 +38,44 @@ const WEDDING = {
   date: "23 серпня 2026",
   dateFmt: "23 · 08 · 2026",
   dateRoman: "23 · 08 · 2026",
-  estTagline: "Established · 2026",
+  estTagline: "Весілля · 2026",
   heroPhotoUrl: `${BASE}couple-portrait.jpg`,
   footerPhotoUrl: `${BASE}couple-detail.jpg`,
   photoCaption: "Дмитро та Ірина",
   venue: {
-    name: "Яхт-клуб",
+    name: "Яхта",
     city: "Осещина · Київська область",
     address: "вул. Київська, 2Г · 07363",
-    ceremonyTime: "14:00",
-    receptionTime: "16:00",
+    ceremonyTime: "14:30",
+    receptionTime: "15:30",
     mapUrl: "https://maps.google.com/?q=Kyivska+2G,+Oseshchyna,+Kyiv+Oblast,+07363",
     poolNote: "На території є басейн — можете взяти із собою плавки та купальники",
   },
+  // Повний денний розклад — ВНУТРІШНІЙ, гостям не показується.
+  internalSchedule: [
+    { time: "10:30–11:30", label: "Дорога на фотосесію" },
+    { time: "11:30–13:00", label: "Фотосесія" },
+    { time: "13:00", label: "Виїзд з фотосесії" },
+    { time: "14:00–14:30", label: "Збір гостей" },
+    { time: "14:30–15:00", label: "Церемонія" },
+    { time: "15:00–15:30", label: "Привітання від гостей" },
+    { time: "15:30–16:30", label: "Перший стіл" },
+    { time: "16:30–17:00", label: "Перерва · перший танець" },
+    { time: "17:00–18:30", label: "Другий стіл" },
+    { time: "18:30–19:00", label: "Перерва · танці та спілкування" },
+    { time: "19:00–20:00", label: "Третій стіл" },
+    { time: "20:00–20:20", label: "Торт, букет, підв'язка" },
+    { time: "20:20–21:40", label: "Танці" },
+  ],
+  // Гостьова програма вечора — показується на сторінці.
   schedule: [
-    { time: "13:30", label: "Збір гостей" },
-    { time: "14:00", label: "Церемонія" },
-    { time: "16:00", label: "Фотосесія та коктейлі" },
-    { time: "17:00", label: "Бенкет у закладі" },
-    { time: "19:00", label: "Перший танець" },
-    { time: "22:00", label: "Святковий торт" },
+    { time: "14:00", label: "Збір гостей" },
+    { time: "14:30", label: "Церемонія" },
+    { time: "15:00", label: "Привітання молодих" },
+    { time: "15:30", label: "Святковий бенкет" },
+    { time: "16:30", label: "Перший танець" },
+    { time: "20:00", label: "Торт та святкові традиції" },
+    { time: "20:20", label: "Танці до ночі" },
   ],
   dressCode: {
     style: "Cocktail Attire",
@@ -119,6 +137,7 @@ async function submitRsvp() {
 </script>
 
 <template>
+  <main class="app">
   <!-- ===== ЕКРАН ВВЕДЕННЯ КОДУ ===== -->
   <Transition name="fade">
     <div v-if="screen === 'code'" class="screen screen-fixed code-screen">
@@ -143,7 +162,7 @@ async function submitRsvp() {
                  autocomplete="off"
                  spellcheck="false"
                  @keyup.enter="checkCode" />
-          <button class="ghost-btn" @click="checkCode">Відкрити запрошення</button>
+          <button class="ghost-btn ghost-btn--sage" @click="checkCode">Відкрити запрошення</button>
           <p class="error-msg">{{ errorMsg }}</p>
         </div>
       </div>
@@ -173,7 +192,7 @@ async function submitRsvp() {
 
         <!-- HERO -->
         <section class="hero">
-          <p v-reveal class="eyebrow eyebrow--stone hero-eyebrow">L'Invitation · 2026</p>
+          <p v-reveal class="eyebrow eyebrow--stone hero-eyebrow">Запрошення</p>
           <h1 v-reveal="120" class="namestack namestack--xl">
             <span class="namestack-line">{{ WEDDING.groomName }}</span>
             <span class="namestack-amp">&amp;</span>
@@ -333,4 +352,5 @@ async function submitRsvp() {
       </div>
     </div>
   </Transition>
+  </main>
 </template>

@@ -43,7 +43,7 @@ export function useInvite() {
         setTimeout(() => {
             screen.value = 'invite';
             startPetals();
-        }, 3800);
+        }, 1600);
     }
 
     function startPetals() {
