@@ -49,7 +49,7 @@ const WEDDING = {
     address: "вул. Київська, 2Г · 07363",
     ceremonyTime: "14:30",
     receptionTime: "15:30",
-    mapUrl: "https://maps.google.com/?q=Kyivska+2G,+Oseshchyna,+Kyiv+Oblast,+07363",
+    mapUrl: "https://maps.app.goo.gl/e25qVvUq9Gbtzo1Q7",
     poolNote: "На території є басейн — можете взяти із собою плавки та купальники",
   },
   // Повний денний розклад — ВНУТРІШНІЙ, гостям не показується.
@@ -76,7 +76,7 @@ const WEDDING = {
     { time: "15:30", label: "Святковий бенкет" },
     { time: "16:30", label: "Перший танець" },
     { time: "20:00", label: "Торт та святкові традиції" },
-    { time: "20:20", label: "Танці до ночі" },
+    { time: "20:20", label: "Танці та вільний час" },
   ],
   dressCode: {
     style: "Cocktail Attire",
