@@ -10,9 +10,19 @@
     --champagne: #d4c8ad;   /* warm champagne — dress-code swatch */
     --stone:     #a3b08d;   /* sage-gray — hairlines, captions */
 
-    --display:   'Cormorant Garamond', Georgia, serif;
-    --serif:     'Cormorant Garamond', Georgia, serif;
+    --humane:    'Humane', 'Jost', sans-serif;   /* лише латиниця/цифри — великі акценти */
+    --display:   'Jost', system-ui, -apple-system, sans-serif;
+    --serif:     'Jost', system-ui, -apple-system, sans-serif;
     --body:      'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Humane — варіативний (100–700), локальний файл; лише латиниця/цифри */
+@font-face {
+    font-family: 'Humane';
+    src: url('./fonts/Humane-VF.woff') format('woff');
+    font-weight: 100 700;
+    font-style: normal;
+    font-display: swap;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,11 +32,18 @@ body, html {
     color: var(--noir);
     font-family: var(--body);
     font-size: 17px;
+    font-weight: 300;
     line-height: 1.6;
-    overflow-x: hidden;
+    width: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+/* Only <html> clips horizontal overflow and acts as the single page scroller.
+   Setting overflow-x on <body> too would force its overflow-y to compute as
+   `auto`, turning <body> into a second, nested scroll container. */
+html { overflow-x: hidden; }
+body { overflow: visible; }
 
 .app {
     position: relative;
@@ -91,7 +108,7 @@ body, html {
     letter-spacing: 0.26em;
     text-transform: uppercase;
     color: var(--sage-deep);
-    font-weight: 500;
+    font-weight: 300;
 }
 
 .eyebrow--stone { color: var(--stone); }
@@ -164,7 +181,7 @@ body, html {
     align-items: center;
     gap: 4px;
     font-family: var(--serif);
-    font-weight: 500;
+    font-weight: 300;
     color: var(--noir);
     line-height: 0.95;
     letter-spacing: 0.01em;
@@ -285,7 +302,7 @@ body, html {
 
 .reveal-name {
     font-family: var(--display);
-    font-weight: 500;
+    font-weight: 300;
     font-size: clamp(56px, 10vw, 120px);
     color: var(--ivory);
     line-height: 1.05;
@@ -355,6 +372,14 @@ body, html {
 @media (min-width: 880px) {
     .hero-photo-wrap { margin: 0 0 60px; border-radius: 10px; }
 }
+/* full-bleed negative margins must match .invite-wrap padding at each breakpoint;
+   placed AFTER the base rule so the shorthand above doesn't reset them */
+@media (max-width: 600px) {
+    .hero-photo-wrap { margin-left: -22px; margin-right: -22px; }
+}
+@media (max-width: 380px) {
+    .hero-photo-wrap { margin-left: -16px; margin-right: -16px; }
+}
 
 .hero-photo {
     width: 100%;
@@ -416,9 +441,9 @@ body, html {
     opacity: .7;
 }
 .section-chapter-num {
-    font-family: var(--display);
-    font-weight: 400;
-    font-size: 28px;
+    font-family: var(--humane);
+    font-weight: 200;
+    font-size: 40px;
     line-height: 1;
     letter-spacing: 0.15em;
     color: var(--sage-deep);
@@ -426,7 +451,7 @@ body, html {
 
 .section-title {
     font-family: var(--serif);
-    font-weight: 500;
+    font-weight: 300;
     font-size: clamp(32px, 5vw, 52px);
     color: var(--noir);
     letter-spacing: 0.02em;
@@ -482,7 +507,7 @@ body, html {
 }
 .venue-name {
     font-family: var(--serif);
-    font-weight: 500;
+    font-weight: 300;
     font-size: clamp(36px, 5vw, 52px);
     color: var(--noir);
     line-height: 1.1;
@@ -491,7 +516,7 @@ body, html {
 }
 .venue-city {
     font-family: var(--body);
-    font-weight: 500;
+    font-weight: 300;
     font-size: 14px;
     letter-spacing: 0.24em;
     text-transform: uppercase;
@@ -513,7 +538,7 @@ body, html {
 .venue-time-label {
     display: block;
     font-family: var(--body);
-    font-weight: 600;
+    font-weight: 300;
     font-size: 13px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
@@ -521,12 +546,12 @@ body, html {
     margin-bottom: 16px;
 }
 .venue-time-block .time-big {
-    font-family: var(--display);
-    font-weight: 500;
-    font-size: clamp(42px, 6vw, 64px);
-    line-height: 1;
+    font-family: var(--humane);
+    font-weight: 200;
+    font-size: clamp(56px, 9vw, 88px);
+    line-height: 0.9;
     color: var(--noir);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
 }
 .venue-divider-vert {
     width: 1px;
@@ -580,7 +605,7 @@ body, html {
 }
 .schedule-time {
     font-family: var(--display);
-    font-weight: 500;
+    font-weight: 300;
     font-size: 22px;
     letter-spacing: 0.08em;
     color: var(--noir);
@@ -593,9 +618,9 @@ body, html {
     text-align: center;
 }
 .dress-style {
-    font-family: var(--display);
-    font-weight: 500;
-    font-size: clamp(28px, 3.4vw, 38px);
+    font-family: var(--humane);
+    font-weight: 300;
+    font-size: clamp(40px, 6vw, 58px);
     color: var(--noir);
     letter-spacing: 0.04em;
     margin-bottom: 12px;
@@ -722,6 +747,19 @@ body, html {
     max-width: 520px;
     margin: 0 auto;
 }
+.rsvp-already {
+    text-align: center;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--olive);
+    max-width: 420px;
+    margin: 0 auto 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(111, 122, 45, 0.25);
+}
+
 .rsvp-question {
     margin-bottom: 36px;
     text-align: center;
@@ -775,9 +813,9 @@ body, html {
     margin: 0 auto;
 }
 .rsvp-thanks-mark {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 56px;
+    font-family: var(--humane);
+    font-weight: 300;
+    font-size: 80px;
     color: var(--sage-deep);
     margin-bottom: 18px;
 }
@@ -832,9 +870,9 @@ body, html {
     pointer-events: none;
 }
 .footer-date-mark {
-    font-family: var(--display);
-    font-weight: 400;
-    font-size: clamp(18px, 2.4vw, 26px);
+    font-family: var(--humane);
+    font-weight: 300;
+    font-size: clamp(30px, 4vw, 44px);
     letter-spacing: 0.3em;
     color: var(--ivory);
     margin-bottom: 24px;
@@ -894,7 +932,7 @@ body, html {
     .section-head { margin-bottom: 36px; }
     .section-chapter { gap: 14px; margin-bottom: 18px; }
     .section-chapter::before, .section-chapter::after { width: 28px; }
-    .section-chapter-num { font-size: 22px; }
+    .section-chapter-num { font-size: 32px; }
     .section-title { font-size: clamp(28px, 8vw, 40px); }
     .section-sub { font-size: 15px; margin-top: 10px; }
 
@@ -903,22 +941,22 @@ body, html {
     .venue-name { font-size: clamp(28px, 7.5vw, 40px); margin-bottom: 10px; }
     .venue-city { font-size: 11px; letter-spacing: 0.35em; margin-bottom: 32px; }
     .venue-time-label { font-size: 11px; letter-spacing: 0.3em; }
-    .venue-time-block .time-big { font-size: clamp(36px, 11vw, 52px); }
+    .venue-time-block .time-big { font-size: clamp(52px, 15vw, 76px); }
 
     /* schedule */
     .schedule-item {
         grid-template-columns: 38px 1fr auto;
         gap: 12px;
-        padding: 16px 0;
+        padding: 16px;
     }
     .schedule-num   { font-size: 12px; letter-spacing: 0.18em; }
     .schedule-label { font-size: 16px; }
     .schedule-time  { font-size: 15px; letter-spacing: 0.12em; }
 
     /* dress code */
-    .dress-style { font-size: clamp(24px, 6.5vw, 32px); }
+    .dress-style { font-size: clamp(36px, 9vw, 48px); }
     .dress-style-sub { font-size: 10px; letter-spacing: 0.35em; margin-bottom: 28px; }
-    .swatches { gap: 10px; }
+    .swatches { gap: 40px; }
     .swatch { width: 44px; height: 44px; }
     .swatch-label { font-size: 8px; letter-spacing: 0.18em; bottom: -18px; }
     .dress-note { font-size: 15px; padding: 0 12px; }
@@ -926,7 +964,7 @@ body, html {
     /* form */
     .rsvp-q-label { font-size: 17px; }
     .toggle-btn   { padding: 11px 22px; min-width: 84px; font-size: 10px; letter-spacing: 0.3em; }
-    .rsvp-thanks-mark { font-size: 44px; }
+    .rsvp-thanks-mark { font-size: 64px; }
     .rsvp-thanks-text { font-size: 16px; padding: 0 12px; }
 
     /* footer */
@@ -944,4 +982,75 @@ body, html {
     .invite-wrap { padding: 0 16px; }
     .toggle-btn { padding: 10px 18px; min-width: 74px; }
     .namestack--xl .namestack-line { font-size: clamp(40px, 14vw, 80px); }
+}
+
+/* ===== ADMIN SCREEN ===== */
+.admin-screen {
+    background: var(--ivory);
+    padding: 32px 0 64px;
+}
+.admin-wrap {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+.admin-head {
+    text-align: center;
+    margin-bottom: 32px;
+}
+.admin-title {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(28px, 6vw, 44px);
+    color: var(--noir);
+    letter-spacing: 0.02em;
+    margin: 8px 0 20px;
+}
+.admin-refresh { padding: 12px 28px; }
+.admin-empty {
+    text-align: center;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 18px;
+    color: var(--stone);
+    margin-top: 32px;
+}
+.admin-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid rgba(35, 46, 24, 0.12);
+    border-radius: 12px;
+    background: var(--paper);
+}
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--body);
+    font-size: 14px;
+}
+.admin-table th,
+.admin-table td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid rgba(163, 176, 141, 0.35);
+    white-space: nowrap;
+}
+.admin-table th {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 300;
+    background: rgba(154, 171, 123, 0.10);
+}
+.admin-table tbody tr:last-child td { border-bottom: none; }
+.admin-table tbody tr:hover { background: rgba(154, 171, 123, 0.08); }
+.admin-code {
+    font-family: var(--display);
+    letter-spacing: 0.12em;
+    color: var(--sage-deep);
+}
+.admin-when {
+    font-size: 12px;
+    color: var(--stone);
 }

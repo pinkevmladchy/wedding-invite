@@ -1,15 +1,27 @@
 import { ref } from 'vue';
 
 export function useInvite() {
-    // TODO: замінити на справжні імена та коди гостей
+    // Код запрошення → ім'я гостя (код вводиться без урахування регістру)
     const GUEST_LIST: Record<string, { name: string }> = {
-        'GUEST01': { name: "Ім'я Гостя 1" },
-        'GUEST02': { name: "Ім'я Гостя 2" },
-        'GUEST03': { name: "Ім'я Гостя 3" },
-        'GUEST04': { name: "Ім'я Гостя 4" },
+        'BATKYDIMA':   { name: "Батьки Дмитра" },
+        'BATKYIRY':    { name: "Батьки Ірини" },
+        'MITYADASHA':  { name: "Мітя та Даша" },
+        'KATYASONYA':  { name: "Катя та Соня" },
+        'KIRILNASTYA': { name: "Кіріл та Настя" },
+        'ARTEMLENA':   { name: "Артем та Лена" },
+        'VLADOSLERA':  { name: "Владос та Лера" },
+        'DASHA':       { name: "Даша Булава" },
+        'MYKULIN':     { name: "Влад Микулін" },
+        'VETAL':       { name: "Веталь Бессараб" },
+        'VITYA':       { name: "Вітя Ейсмонт" },
+        'NIZARANYA':   { name: "Нізар та Аня" },
+        'DIMALENA':    { name: "Діма та Лена" },
+        'VLADA':       { name: "Влада Сєрікова" },
+        'SASHAYULYA':  { name: "Саша та Юля" },
+        'NASTYA':      { name: "Настя Кулініч" },
     };
 
-    const screen = ref<'code' | 'reveal' | 'invite'>('code');
+    const screen = ref<'code' | 'reveal' | 'invite' | 'admin'>('code');
     const codeInput = ref('');
     const errorMsg = ref('');
     const inputShaking = ref(false);
@@ -21,6 +33,11 @@ export function useInvite() {
         const val = codeInput.value.trim().toUpperCase();
         if (!val) {
             errorMsg.value = 'Будь ласка, введіть код запрошення';
+            return;
+        }
+        if (val === 'ADMIN') {
+            errorMsg.value = '';
+            screen.value = 'admin';
             return;
         }
         const guest = GUEST_LIST[val];

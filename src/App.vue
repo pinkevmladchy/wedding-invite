@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useInvite } from './composables/useInvite';
+import { saveRsvp, fetchRsvp, fetchAllRsvp, type RsvpRow } from './lib/db';
 
 const {
   screen,
@@ -71,7 +72,7 @@ const WEDDING = {
   schedule: [
     { time: "14:00", label: "Збір гостей" },
     { time: "14:30", label: "Церемонія" },
-    { time: "15:00", label: "Привітання молодих" },
+    { time: "15:00", label: "Привітання молодят" },
     { time: "15:30", label: "Святковий бенкет" },
     { time: "16:30", label: "Перший танець" },
     { time: "20:00", label: "Торт та святкові традиції" },
@@ -98,9 +99,25 @@ const submitting = ref(false);
 const submitted = ref(false);
 const submitError = ref('');
 const photoLoaded = ref(true);
+const alreadyResponded = ref(false);
 
 function onPhotoError() {
   photoLoaded.value = false;
+}
+
+// Підтягуємо попередню відповідь гостя й наперед заповнюємо перемикачі.
+async function loadExisting() {
+  if (!guestCode.value) return;
+  try {
+    const row = await fetchRsvp(guestCode.value);
+    if (row) {
+      rsvpPresent.value = row.present.startsWith('Так') ? 'yes' : 'no';
+      rsvpCeremony.value = row.ceremony === 'Так' ? 'yes' : 'no';
+      alreadyResponded.value = true;
+    }
+  } catch (e) {
+    console.error('loadExisting failed', e);
+  }
 }
 
 async function submitRsvp() {
@@ -111,28 +128,52 @@ async function submitRsvp() {
   submitError.value = '';
   submitting.value = true;
 
-  const payload = {
-    guest: guestName.value,
+  const row: RsvpRow = {
     code: guestCode.value,
+    guest_name: guestName.value,
     present: rsvpPresent.value === 'yes' ? 'Так, буду присутній(ня)' : 'На жаль, не зможу',
     ceremony: rsvpCeremony.value === 'yes' ? 'Так' : 'Ні',
-    _subject: `RSVP: ${guestName.value}`,
+    updated_at: new Date().toISOString(),
   };
 
   try {
-    const res = await fetch(FORMSPREE_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) throw new Error(`status ${res.status}`);
+    await saveRsvp(row);
     submitted.value = true;
   } catch (e) {
-    submitError.value = 'Не вдалося відправити. Спробуйте, будь ласка, ще раз.';
-    console.error('RSVP submit failed', e, payload);
+    submitError.value = 'Не вдалося зберегти. Спробуйте, будь ласка, ще раз.';
+    console.error('RSVP save failed', e, row);
   } finally {
     submitting.value = false;
   }
+}
+
+// ===== ЕКРАН АДМІНА (code: admin) =====
+const adminRows = ref<RsvpRow[]>([]);
+const adminLoading = ref(false);
+const adminError = ref('');
+
+async function loadAdmin() {
+  adminLoading.value = true;
+  adminError.value = '';
+  try {
+    adminRows.value = await fetchAllRsvp();
+  } catch (e) {
+    adminError.value = 'Не вдалося завантажити відповіді.';
+    console.error('admin load failed', e);
+  } finally {
+    adminLoading.value = false;
+  }
+}
+
+watch(screen, (s) => {
+  if (s === 'admin') loadAdmin();
+  if (s === 'invite') loadExisting();
+});
+
+function fmtDate(iso?: string): string {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  return d.toLocaleString('uk-UA', { dateStyle: 'short', timeStyle: 'short' });
 }
 </script>
 
@@ -157,7 +198,7 @@ async function submitRsvp() {
           <label class="code-label">Код запрошення</label>
           <input v-model="codeInput"
                  :class="['code-input', { shake: inputShaking }]"
-                 maxlength="10"
+                 maxlength="16"
                  placeholder="••••••"
                  autocomplete="off"
                  spellcheck="false"
@@ -269,7 +310,6 @@ async function submitRsvp() {
             <h2 class="section-title">Дрес-код</h2>
           </header>
           <div class="dress">
-            <p class="dress-style">{{ WEDDING.dressCode.style }}</p>
             <p class="dress-style-sub">{{ WEDDING.dressCode.sub }}</p>
 
             <div class="swatches-wrap">
@@ -296,6 +336,9 @@ async function submitRsvp() {
           </header>
 
           <div v-if="!submitted" class="rsvp-form">
+            <p v-if="alreadyResponded" class="rsvp-already">
+              Ви вже відповідали — нижче ваш вибір. Можете залишити як є або змінити та зберегти знову.
+            </p>
             <div class="rsvp-question">
               <p class="rsvp-q-label">Я буду присутній (присутня) на весіллі</p>
               <div class="toggle">
@@ -323,7 +366,7 @@ async function submitRsvp() {
             <button class="ghost-btn rsvp-submit"
                     :disabled="submitting"
                     @click="submitRsvp">
-              {{ submitting ? 'Відправляємо…' : 'Підтвердити' }}
+              {{ submitting ? 'Зберігаємо…' : (alreadyResponded ? 'Зберегти зміни' : 'Підтвердити') }}
             </button>
             <p v-if="submitError" class="error-msg">{{ submitError }}</p>
           </div>
@@ -349,6 +392,52 @@ async function submitRsvp() {
           <p class="footer-sign">З нетерпінням чекаємо на Вас</p>
         </footer>
 
+      </div>
+    </div>
+  </Transition>
+
+  <!-- ===== ЕКРАН АДМІНА ===== -->
+  <Transition name="fade">
+    <div v-if="screen === 'admin'" class="screen admin-screen">
+      <div class="admin-wrap">
+        <header class="admin-head">
+          <p class="eyebrow eyebrow--stone">Адмін-панель</p>
+          <h2 class="admin-title">Відповіді гостей</h2>
+          <button class="ghost-btn ghost-btn--sage admin-refresh"
+                  :disabled="adminLoading"
+                  @click="loadAdmin">
+            {{ adminLoading ? 'Завантаження…' : 'Оновити' }}
+          </button>
+        </header>
+
+        <p v-if="adminError" class="error-msg">{{ adminError }}</p>
+
+        <p v-else-if="!adminLoading && adminRows.length === 0" class="admin-empty">
+          Поки що немає жодної відповіді.
+        </p>
+
+        <div v-else-if="adminRows.length" class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Гість</th>
+                <th>Код</th>
+                <th>Присутність</th>
+                <th>Церемонія</th>
+                <th>Оновлено</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="r in adminRows" :key="r.code">
+                <td>{{ r.guest_name }}</td>
+                <td class="admin-code">{{ r.code }}</td>
+                <td>{{ r.present }}</td>
+                <td>{{ r.ceremony }}</td>
+                <td class="admin-when">{{ fmtDate(r.updated_at) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </Transition>
