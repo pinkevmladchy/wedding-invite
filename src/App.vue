@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import { useInvite } from './composables/useInvite';
 import { saveRsvp, fetchRsvp, fetchAllRsvp, type RsvpRow } from './lib/db';
 
@@ -15,6 +15,13 @@ const {
   guestGreeting,
   guestTask,
 } = useInvite();
+
+// Питання про присутність — узгоджене за родом/числом (gender відомий за кодом)
+const presentLabel = computed(() => {
+  if (guestGreeting.value === 'Любий') return 'Я буду присутній на весіллі';
+  if (guestGreeting.value === 'Люба') return 'Я буду присутня на весіллі';
+  return 'Ми будемо присутні на весіллі';
+});
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -385,7 +392,7 @@ function fmtDate(iso?: string): string {
               Ви вже відповідали — нижче ваш вибір. Можете залишити як є або змінити та зберегти знову.
             </p>
             <div class="rsvp-question">
-              <p class="rsvp-q-label">Я буду присутній (присутня) на весіллі</p>
+              <p class="rsvp-q-label">{{ presentLabel }}</p>
               <div class="toggle">
                 <button type="button"
                         :class="['toggle-btn', { active: rsvpPresent === 'yes' }]"
