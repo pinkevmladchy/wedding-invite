@@ -11,9 +11,11 @@ const {
   inputShaking,
   guestName,
   guestCode,
+  guestKids,
+  guestGreeting,
+  guestTask,
 } = useInvite();
 
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/meedgyqd';
 const BASE = import.meta.env.BASE_URL;
 
 // Scroll-reveal directive: fades + slides up as element enters viewport
@@ -47,10 +49,10 @@ const WEDDING = {
     name: "Яхта",
     city: "Осещина · Київська область",
     address: "вул. Київська, 2Г · 07363",
+    hall: "VIP панорама зал",
     ceremonyTime: "14:30",
     receptionTime: "15:30",
     mapUrl: "https://maps.app.goo.gl/e25qVvUq9Gbtzo1Q7",
-    poolNote: "На території є басейн — можете взяти із собою плавки та купальники",
   },
   // Повний денний розклад — ВНУТРІШНІЙ, гостям не показується.
   internalSchedule: [
@@ -72,11 +74,7 @@ const WEDDING = {
   schedule: [
     { time: "14:00", label: "Збір гостей" },
     { time: "14:30", label: "Церемонія" },
-    { time: "15:00", label: "Привітання молодят" },
-    { time: "15:30", label: "Святковий бенкет" },
-    { time: "16:30", label: "Перший танець" },
-    { time: "20:00", label: "Торт та святкові традиції" },
-    { time: "20:20", label: "Танці та вільний час" },
+    { time: "15:00–22:00", label: "Свято кохання" },
   ],
   dressCode: {
     style: "Cocktail Attire",
@@ -86,7 +84,7 @@ const WEDDING = {
       { hex: "#d4c8ad", label: "Шампань" },
       { hex: "#9aab7b", label: "Шавлія" },
       { hex: "#5e6e35", label: "Олива" },
-      { hex: "#b59a52", label: "Брасс" },
+      { hex: "#7a5a46", label: "Мокко" },
       { hex: "#1a1b16", label: "Нуар" },
     ],
   },
@@ -219,7 +217,7 @@ function fmtDate(iso?: string): string {
   <!-- ===== ЕКРАН ВІДКРИТТЯ ===== -->
   <Transition name="fade">
     <div v-if="screen === 'reveal'" class="screen screen-fixed reveal-screen">
-      <p class="reveal-eyebrow">Любий гостю</p>
+      <p class="reveal-eyebrow">{{ guestGreeting }},</p>
       <h2 class="reveal-name">{{ guestName }}</h2>
       <div class="reveal-divider"></div>
       <p class="reveal-msg">Ми з радістю запрошуємо Вас на наше весілля</p>
@@ -265,6 +263,7 @@ function fmtDate(iso?: string): string {
           <div class="venue-card">
             <p class="venue-name">{{ WEDDING.venue.name }}</p>
             <p class="venue-city">{{ WEDDING.venue.city }}</p>
+            <p class="venue-hall">Зустріч гостей та банкет — {{ WEDDING.venue.hall }}</p>
 
             <div class="venue-times">
               <div class="venue-time-block">
@@ -280,7 +279,40 @@ function fmtDate(iso?: string): string {
 
             <a class="map-link" :href="WEDDING.venue.mapUrl" target="_blank" rel="noopener">Відкрити на мапі</a>
 
-            <p class="venue-pool-note">{{ WEDDING.venue.poolNote }}</p>
+          </div>
+        </section>
+
+        <!-- БАСЕЙН (для всіх) -->
+        <section v-reveal class="section">
+          <div class="pool-card">
+            <p class="eyebrow eyebrow--stone">Приємний бонус</p>
+            <p class="pool-title">Басейн</p>
+            <p class="pool-text">
+              Прямо біля нашого банкетного залу розташований басейн. Тож
+              увечері, після спекотного дня, можна буде охолодитись —
+              хто матиме бажання, welcome.
+            </p>
+          </div>
+        </section>
+
+        <!-- ДИТЯЧА ЗОНА (лише для гостей з дітьми) -->
+        <section v-if="guestKids" v-reveal class="section kids-section">
+          <div class="kids-card">
+            <p class="eyebrow eyebrow--stone">Для ваших дітей</p>
+            <p class="kids-title">Окрема дитяча зона</p>
+            <p class="kids-text">
+              Спеціально для діток буде облаштована велика окрема зона, де вони
+              зможуть гратися та відпочивати. Так і малеча буде зайнята, і дорослі
+              зможуть спокійно святкувати.
+            </p>
+          </div>
+        </section>
+
+        <!-- ПЕРСОНАЛЬНЕ ПРОХАННЯ (лише для гостей із task) -->
+        <section v-if="guestTask" v-reveal class="section task-section">
+          <div class="task-card">
+            <p class="eyebrow eyebrow--stone">Особисте прохання</p>
+            <p class="task-text">{{ guestTask }}</p>
           </div>
         </section>
 
@@ -322,6 +354,19 @@ function fmtDate(iso?: string): string {
               </div>
             </div>
 
+          </div>
+        </section>
+
+        <!-- НАШЕ ПРОХАННЯ (для всіх) -->
+        <section v-reveal class="section">
+          <div class="wishes">
+            <p class="eyebrow eyebrow--stone">Від молодят</p>
+            <p class="wishes-text">
+              Ми вирішили лишити гучні традиції в минулому: на нашому святі не буде
+              криків «Гірко!», викрадення нареченої та інших подібних звичаїв.
+              Натомість ми хочемо просто щиро розділити з вами радість народження
+              нової сім'ї — у теплій, легкій та невимушеній атмосфері.
+            </p>
           </div>
         </section>
 

@@ -524,6 +524,17 @@ body { overflow: visible; }
     margin-bottom: 44px;
 }
 
+.venue-hall {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--olive);
+    letter-spacing: 0.02em;
+    margin: -28px auto 40px;
+    max-width: 440px;
+}
+
 .venue-times {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
@@ -569,6 +580,116 @@ body { overflow: visible; }
         height: 1px;
         margin: 0 auto;
     }
+}
+
+/* НАШЕ ПРОХАННЯ */
+.wishes {
+    max-width: 620px;
+    margin: 0 auto;
+    text-align: center;
+}
+.wishes-text {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(20px, 2.4vw, 26px);
+    line-height: 1.65;
+    color: var(--noir);
+    letter-spacing: 0.02em;
+    margin-top: 24px;
+}
+@media (max-width: 640px) {
+    .wishes-text { font-size: 17px; padding: 0 6px; }
+}
+
+/* БАСЕЙН (для всіх) */
+.pool-card {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 48px 40px;
+    border: 1px solid rgba(154, 171, 123, 0.45);
+    border-radius: 14px;
+    background: rgba(154, 171, 123, 0.10);
+}
+.pool-title {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(26px, 5vw, 38px);
+    color: var(--noir);
+    letter-spacing: 0.02em;
+    margin: 14px 0 18px;
+}
+.pool-text {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--olive);
+    letter-spacing: 0.02em;
+    max-width: 460px;
+    margin: 0 auto;
+}
+@media (max-width: 640px) {
+    .pool-card { padding: 36px 22px; }
+    .pool-text { font-size: 16px; }
+}
+
+/* ПЕРСОНАЛЬНЕ ПРОХАННЯ (умовна секція) */
+.task-card {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 48px 40px;
+    border: 1px solid rgba(35, 46, 24, 0.12);
+    border-radius: 14px;
+    background: var(--paper);
+    box-shadow: 0 14px 40px rgba(35, 46, 24, 0.06);
+}
+.task-text {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(19px, 2.3vw, 24px);
+    line-height: 1.6;
+    color: var(--noir);
+    letter-spacing: 0.02em;
+    margin-top: 18px;
+}
+@media (max-width: 640px) {
+    .task-card { padding: 36px 22px; }
+    .task-text { font-size: 17px; }
+}
+
+/* KIDS ZONE (умовна секція) */
+.kids-card {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 48px 40px;
+    border: 1px solid rgba(154, 171, 123, 0.45);
+    border-radius: 14px;
+    background: rgba(154, 171, 123, 0.10);
+}
+.kids-title {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(26px, 5vw, 38px);
+    color: var(--noir);
+    letter-spacing: 0.02em;
+    margin: 14px 0 18px;
+}
+.kids-text {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--olive);
+    letter-spacing: 0.02em;
+    max-width: 460px;
+    margin: 0 auto;
+}
+@media (max-width: 640px) {
+    .kids-card { padding: 36px 22px; }
+    .kids-text { font-size: 16px; }
 }
 
 /* SCHEDULE */
@@ -727,19 +848,6 @@ body { overflow: visible; }
 .map-link:hover {
     background: var(--noir);
     color: var(--ivory);
-}
-
-.venue-pool-note {
-    margin: 32px auto 0;
-    max-width: 440px;
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 18px;
-    line-height: 1.55;
-    color: var(--olive);
-    letter-spacing: 0.03em;
-    padding-top: 22px;
-    border-top: 1px solid rgba(111, 122, 45, 0.25);
 }
 
 /* RSVP FORM */

@@ -2,23 +2,29 @@ import { ref } from 'vue';
 
 export function useInvite() {
     // Код запрошення → ім'я гостя (код вводиться без урахування регістру)
-    const GUEST_LIST: Record<string, { name: string }> = {
-        'BATKYDIMA':   { name: "Батьки Дмитра" },
-        'BATKYIRY':    { name: "Батьки Ірини" },
-        'MITYADASHA':  { name: "Мітя та Даша" },
-        'KATYASONYA':  { name: "Катя та Соня" },
+    // kids: true — гостю показується секція про дитячу зону
+    // greet: 'm' | 'f' — рід для вітання (Любий/Люба); без поля → множина (Любі)
+    // task — персональне прохання, показується окремою карткою лише цьому гостю
+    const GUEST_LIST: Record<string, { name: string; kids?: boolean; greet?: 'm' | 'f'; task?: string }> = {
+        'BATKYDIMA':   { name: "Батьки нареченого" },
+        'BATKYIRY':    { name: "Батьки нареченої" },
+        'MITYADASHA':  { name: "Мітя та Даша", kids: true,
+                         task: "Ми будемо дуже раді, якщо Ілюша винесе обручки для наречених під час церемонії." },
+        'KATYASONYA':  { name: "Катя та Соня", kids: true,
+                         task: "Ми будемо дуже раді, якщо Соня винесе обручки для наречених під час церемонії." },
         'KIRILNASTYA': { name: "Кіріл та Настя" },
-        'ARTEMLENA':   { name: "Артем та Лена" },
-        'VLADOSLERA':  { name: "Владос та Лера" },
-        'DASHA':       { name: "Даша Булава" },
-        'MYKULIN':     { name: "Влад Микулін" },
-        'VETAL':       { name: "Веталь Бессараб" },
-        'VITYA':       { name: "Вітя Ейсмонт" },
+        'ARTEMLENA':   { name: "Артем та Олена", kids: true },
+        'VLADOSLERA':  { name: "Владос та Валерія" },
+        'DASHA':       { name: "Даша Булава", greet: 'f' },
+        'MYKULIN':     { name: "Влад Микулін", greet: 'm' },
+        'VETAL':       { name: "Веталь Бессараб", greet: 'm' },
+        'VITYA':       { name: "Вітя Ейсмонт", greet: 'm' },
         'NIZARANYA':   { name: "Нізар та Аня" },
-        'DIMALENA':    { name: "Діма та Лена" },
-        'VLADA':       { name: "Влада Сєрікова" },
+        'DIMALENA':    { name: "Діма та Олена" },
+        'VLADA':       { name: "Влада Сєрікова", greet: 'f' },
         'SASHAYULYA':  { name: "Саша та Юля" },
-        'NASTYA':      { name: "Настя Кулініч" },
+        'NASTYA':      { name: "Настя Кулініч", greet: 'f' },
+        'DENYS':       { name: "Денис Тищенко", greet: 'm' },
     };
 
     const screen = ref<'code' | 'reveal' | 'invite' | 'admin'>('code');
@@ -27,6 +33,9 @@ export function useInvite() {
     const inputShaking = ref(false);
     const guestName = ref('');
     const guestCode = ref('');
+    const guestKids = ref(false);
+    const guestGreeting = ref('Любі');
+    const guestTask = ref('');
     const petals = ref<Array<{ id: number; left: number; duration: number; delay: number; rotation: number; symbol: string }>>([]);
 
     function checkCode() {
@@ -52,6 +61,9 @@ export function useInvite() {
         errorMsg.value = '';
         guestName.value = guest.name;
         guestCode.value = val;
+        guestKids.value = !!guest.kids;
+        guestGreeting.value = guest.greet === 'm' ? 'Любий' : guest.greet === 'f' ? 'Люба' : 'Любі';
+        guestTask.value = guest.task ?? '';
         startReveal();
     }
 
@@ -78,5 +90,5 @@ export function useInvite() {
 
     startPetals();
 
-    return { screen, codeInput, errorMsg, checkCode, inputShaking, guestName, guestCode, petals };
+    return { screen, codeInput, errorMsg, checkCode, inputShaking, guestName, guestCode, guestKids, guestGreeting, guestTask, petals };
 }
