@@ -99,7 +99,6 @@ const WEDDING = {
 
 type YesNo = 'yes' | 'no' | '';
 const rsvpPresent = ref<YesNo>('');
-const rsvpCeremony = ref<YesNo>('');
 const submitting = ref(false);
 const submitted = ref(false);
 const submitError = ref('');
@@ -117,7 +116,6 @@ async function loadExisting() {
     const row = await fetchRsvp(guestCode.value);
     if (row) {
       rsvpPresent.value = row.present.startsWith('Так') ? 'yes' : 'no';
-      rsvpCeremony.value = row.ceremony === 'Так' ? 'yes' : 'no';
       alreadyResponded.value = true;
     }
   } catch (e) {
@@ -126,8 +124,8 @@ async function loadExisting() {
 }
 
 async function submitRsvp() {
-  if (!rsvpPresent.value || !rsvpCeremony.value) {
-    submitError.value = 'Будь ласка, дайте відповідь на всі питання';
+  if (!rsvpPresent.value) {
+    submitError.value = 'Будь ласка, дайте відповідь';
     return;
   }
   submitError.value = '';
@@ -137,7 +135,6 @@ async function submitRsvp() {
     code: guestCode.value,
     guest_name: guestName.value,
     present: rsvpPresent.value === 'yes' ? 'Так, буду присутній(ня)' : 'На жаль, не зможу',
-    ceremony: rsvpCeremony.value === 'yes' ? 'Так' : 'Ні',
     updated_at: new Date().toISOString(),
   };
 
@@ -403,18 +400,6 @@ function fmtDate(iso?: string): string {
               </div>
             </div>
 
-            <div class="rsvp-question">
-              <p class="rsvp-q-label">Чи будете на церемонії?</p>
-              <div class="toggle">
-                <button type="button"
-                        :class="['toggle-btn', { active: rsvpCeremony === 'yes' }]"
-                        @click="rsvpCeremony = 'yes'">Так</button>
-                <button type="button"
-                        :class="['toggle-btn', { active: rsvpCeremony === 'no' }]"
-                        @click="rsvpCeremony = 'no'">Ні</button>
-              </div>
-            </div>
-
             <button class="ghost-btn rsvp-submit"
                     :disabled="submitting"
                     @click="submitRsvp">
@@ -475,7 +460,6 @@ function fmtDate(iso?: string): string {
                 <th>Гість</th>
                 <th>Код</th>
                 <th>Присутність</th>
-                <th>Церемонія</th>
                 <th>Оновлено</th>
               </tr>
             </thead>
@@ -484,7 +468,6 @@ function fmtDate(iso?: string): string {
                 <td>{{ r.guest_name }}</td>
                 <td class="admin-code">{{ r.code }}</td>
                 <td>{{ r.present }}</td>
-                <td>{{ r.ceremony }}</td>
                 <td class="admin-when">{{ fmtDate(r.updated_at) }}</td>
               </tr>
             </tbody>

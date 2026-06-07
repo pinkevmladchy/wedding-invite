@@ -12,7 +12,7 @@ export interface RsvpRow {
   code: string;
   guest_name: string;
   present: string;
-  ceremony: string;
+  ceremony?: string;
   updated_at?: string;
 }
 
