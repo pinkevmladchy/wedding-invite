@@ -35,7 +35,8 @@ export function useInvite() {
             errorMsg.value = 'Будь ласка, введіть код запрошення';
             return;
         }
-        if (val === 'ADMIN') {
+        // Код адміна (вводиться без урахування регістру)
+        if (val === 'IRADIMA2308QZ') {
             errorMsg.value = '';
             screen.value = 'admin';
             return;
