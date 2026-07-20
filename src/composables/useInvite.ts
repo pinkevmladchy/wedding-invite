@@ -25,6 +25,7 @@ export function useInvite() {
         'SASHAYULYA':  { name: "Саша та Юля" },
         'NASTYA':      { name: "Настя Кулініч", greet: 'f' },
         'DENYS':       { name: "Денис Тищенко", greet: 'm' },
+        'IGORNASTYA':  { name: "Ігор та Настя" },
     };
 
     const screen = ref<'code' | 'reveal' | 'invite' | 'admin'>('code');
