@@ -381,7 +381,6 @@ function fmtDate(iso?: string): string {
               <span class="section-chapter-num">04</span>
             </div>
             <h2 class="section-title">Підтвердження</h2>
-            <p class="section-sub">Будь ласка, дайте нам знати до 1 серпня</p>
           </header>
 
           <div v-if="!submitted" class="rsvp-form">
